@@ -42,4 +42,22 @@ class InAppUpdateTest {
                 }
         }
     }
+
+    @Test
+    fun testWithoutFlow() {
+        runTest {
+            appUpdateManager.setUpdateNotAvailable()
+            assertEquals(
+                "Should not be available",
+                appUpdateManager.requestAppUpdateInfo().updateAvailability(),
+                UpdateAvailability.UPDATE_NOT_AVAILABLE
+            )
+            appUpdateManager.setUpdateAvailable(42)
+            assertEquals(
+                "Should be available",
+                appUpdateManager.requestAppUpdateInfo().updateAvailability(),
+                UpdateAvailability.UPDATE_AVAILABLE
+            )
+        }
+    }
 }
